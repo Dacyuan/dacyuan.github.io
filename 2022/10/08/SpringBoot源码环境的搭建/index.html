@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="SpringBoot源码环境的搭建, 江南令狐冲">
-    <meta name="description" content="">
+    <meta name="description" content="前言突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。
+这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -361,9 +362,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/SpringBoot-Source-Code/">
+                                <span class="chip bg-color">SpringBoot Source Code</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -396,7 +401,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。</p>
+<p>这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。</p>
+<h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>Idea 2020<br>Jdk 1.8<br>Maven 3.6   </p>
+<h1 id="下载对应版本的源码"><a href="#下载对应版本的源码" class="headerlink" title="下载对应版本的源码"></a>下载对应版本的源码</h1><p>源码地址为：<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE">https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE</a></p>
+<h1 id="编译构建SpringBoot源码项目"><a href="#编译构建SpringBoot源码项目" class="headerlink" title="编译构建SpringBoot源码项目"></a>编译构建SpringBoot源码项目</h1><ul>
+<li>进入spring-boot源码根目录 </li>
+<li>执行命令 mvn clean install -DskipTests -Pfast</li>
+<li>等待构建完成，时间挺长的</li>
+</ul>
+<h1 id="使用idea打开编译后的spring-boot源码"><a href="#使用idea打开编译后的spring-boot源码" class="headerlink" title="使用idea打开编译后的spring-boot源码"></a>使用idea打开编译后的spring-boot源码</h1>
                 
             </div>
             <hr/>
@@ -459,7 +473,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/SpringBoot-Source-Code/">
+                                    <span class="chip bg-color">SpringBoot Source Code</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -569,6 +587,14 @@
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringBoot-Source-Code/">
+                        <span class="chip bg-color">SpringBoot Source Code</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
