@@ -410,7 +410,7 @@ spring-boot的两大特性是依赖管理和自动配置
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.6k
                 </div>
                 
 
@@ -607,8 +607,21 @@ spring-boot的两大特性是依赖管理和自动配置
 <li>@ComponentScan：包扫描注解<br>这三个注解也就等同于@SpringBootApplication注解，因此我们可以用这三个注解替换@SpringBootApplication来启动SpringBoot项目。接下来我们由易到难来分析这三个注解</li>
 </ul>
 <h4 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h4><p>查看@SpringBootConfiguration的源码可知，该注解本质上就是@Configuration，@Configuration标注在类上，表示当前类为JavaConfig类，Spring IOC容器会扫描创建JavaConfig配置的Bean。</p>
-<h4 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h4><p>顾名思义该注解是包扫描注解，它是完成组件的扫描，即哪些包下面的组件会被扫描到。</p>
-<h4 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h4><p>开启自动配置的注解，是实现自动配置的核心所在。</p>
+<h4 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h4><p>顾名思义该注解是包扫描注解。</p>
+<h4 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h4><p>开启自动配置的注解，是实现自动配置的核心所在。该注解的源码如下，它是借助@Import向容器中注册AutoConfigurationImportSelector类的selectImports()方法返回的类组件列表。对于通过@Import注解注入组件不懂的小伙伴可以看这篇博客<a href="https://dacyuan.github.io/2022/10/09/%E7%BB%99Spring-Ioc%E5%AE%B9%E5%99%A8%E6%B3%A8%E5%85%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">给Spring Ioc容器注入组件的几种方式总结</a>。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">TYPE</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Inherited</span>
+<span class="token annotation punctuation">@AutoConfigurationPackage</span>
+<span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token class-name">AutoConfigurationImportSelector</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">EnableAutoConfiguration</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//  省略代码</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
 
                 
             </div>
@@ -880,6 +893,32 @@ spring-boot的两大特性是依赖管理和自动配置
 
 
 
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
         <div class="toc-widget card" style="background-color: white;">
@@ -1038,7 +1077,7 @@ spring-boot的两大特性是依赖管理和自动配置
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">2.7k</span>
+                        class="white-color">6k</span>
             
             
             

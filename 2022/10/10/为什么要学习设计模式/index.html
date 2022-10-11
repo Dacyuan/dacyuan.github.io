@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot源码环境的搭建, 江南令狐冲">
-    <meta name="description" content="前言突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。
-这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。">
+    <meta name="keywords" content="为什么要学习设计模式, 江南令狐冲">
+    <meta name="description" content="很多程序员都已经意识到基础知识的重要性，觉得要夯实基础，才能走得更远，但同时对于如何将基础知识转化成开发“生产力”仍然有些疑惑。
+所以，你可能看了很多基础的书籍，比如操作系统、组成原理、编译原理等，但还是觉得很迷茫，觉得在开发中用不上，起码">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SpringBoot源码环境的搭建 | 江南令狐冲</title>
+    <title>为什么要学习设计模式 | 江南令狐冲</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -335,12 +335,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringBoot源码环境的搭建</h1>
+                    <h1 class="description center-align post-title">为什么要学习设计模式</h1>
                 </div>
             </div>
         </div>
@@ -364,8 +364,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/SpringBoot-Source-Code/">
-                                <span class="chip bg-color">SpringBoot Source Code</span>
+                            <a href="/tags/Design-Pattern/">
+                                <span class="chip bg-color">Design Pattern</span>
                             </a>
                         
                     </div>
@@ -376,8 +376,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                框架
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                设计模式
                             </a>
                         
                     </div>
@@ -389,28 +389,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-08
+                    2022-10-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-09
+                    2022-10-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    296
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    7 分
                 </div>
                 
 
@@ -433,31 +433,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。</p>
-<p>这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。</p>
-<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p>Idea 2020<br>Jdk 1.8<br>Maven 3.6   </p>
-<h2 id="下载对应版本的源码"><a href="#下载对应版本的源码" class="headerlink" title="下载对应版本的源码"></a>下载对应版本的源码</h2><p>源码地址为：<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE">https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE</a></p>
-<h2 id="编译构建SpringBoot源码项目"><a href="#编译构建SpringBoot源码项目" class="headerlink" title="编译构建SpringBoot源码项目"></a>编译构建SpringBoot源码项目</h2><ul>
-<li>进入spring-boot源码根目录 </li>
-<li>执行命令 <code>mvn clean install -DskipTests -Pfast</code></li>
-<li>等待构建完成，时间挺长的</li>
-</ul>
-<h2 id="使用idea打开编译后的spring-boot源码"><a href="#使用idea打开编译后的spring-boot源码" class="headerlink" title="使用idea打开编译后的spring-boot源码"></a>使用idea打开编译后的spring-boot源码</h2><ul>
-<li>修改根目录下的pom.xml <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>revision</span><span class="token punctuation">></span></span>2.2.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>revision</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main.basedir</span><span class="token punctuation">></span></span>$&#123;basedir&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main.basedir</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>disable.checks</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>disable.checks</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
- 添加 <code>&lt;disable.checks&gt;true&lt;/disable.checks&gt;</code></li>
-<li>新建module名为spring-boot-samples，并修改pom.xml文件为： <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.2.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment">&lt;!-- lookup parent from repository --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-version修改为2.2.9.RELEASE</li>
-</ul>
-<p>至此Spring-boot源码环境的搭建成功</p>
+                <p>很多程序员都已经意识到基础知识的重要性，觉得要夯实基础，才能走得更远，但同时对于如何将基础知识转化成开发“生产力”仍然有些疑惑。</p>
+<p>所以，你可能看了很多基础的书籍，比如操作系统、组成原理、编译原理等，但还是觉得很迷茫，觉得在开发中用不上，起码在平时的 CRUD 业务开发中用不上。实际上，这些基础的知识确实很难直接转化成开发“生产力”。但是，它能潜移默化地、间接地提高你对技术的理解。</p>
+<p>不过，设计模式和操作系统、组成原理、编译原理等这些基础学科是不一样的。它虽然也算是一门基础知识，但是它和数据结构、算法更像是一道儿的，相比那些更加基础的学科，设计模式能更直接地提高你的开发能力。如果说数据结构和算法是教你如何写出高效代码，那设计模式讲的是如何写出可扩展、可读、可维护的高质量代码，所以，它们跟平时的编码会有直接的关系，也会直接影响到你的开发能力。</p>
+<p>不过，你可能还是会觉得设计模式是把屠龙刀，看起来很厉害，但平时的开发根本用不上。基于这种观点，接下来，我们就具体地聊一聊，我们为什么要学习设计模式？</p>
+<h3 id="1-应对面试"><a href="#1-应对面试" class="headerlink" title="1. 应对面试"></a>1. 应对面试</h3><p>不管你是前端工程师、后端工程师，还是全栈工程师，在求职面试中，设计模式问题是被问得频率比较高的一类问题。特别是一些像 BAT、TMD 这样的大公司，比较重视候选人的基本功，经常会拿算法、设计模式之类的问题来考察候选人。系统学习设计模式之后，后面只需要花很少时间就能温故设计模式相关知识，起到事半功倍的效果，避免面试吃瘪。</p>
+<h3 id="2-告别写出烂代码"><a href="#2-告别写出烂代码" class="headerlink" title="2. 告别写出烂代码"></a>2. 告别写出烂代码</h3><p>我们经常说，“Talk is cheap，show me the code。”实际上，代码能力是一个程序员最基础的能力，是基本功，是展示一个程序员基础素养的最直接的衡量标准。你写的代码，实际上就是你名片。工作过程中大家都见过甚至写过烂代码，比如命名不规范、类设计不合理、分层不清晰、没有模块化概念、代码结构混乱、高度耦合等等。这样的代码维护起来非常费劲，添加或者修改一个功能，常常会牵一发而动全身，让你无从下手，恨不得将全部的代码删掉重写！另外，如果你看到了高质量的代码，会立刻对作者产生无比的好感和认可。且不管这个人处在公司的何种级别，从代码就能看出，他是一个基础扎实的高潜员工，值得培养，前途无量！因此，代码写得好，能让你在团队中脱颖而出。</p>
+<h3 id="3-提高复杂代码的设计和开发能力"><a href="#3-提高复杂代码的设计和开发能力" class="headerlink" title="3. 提高复杂代码的设计和开发能力"></a>3. 提高复杂代码的设计和开发能力</h3><p>大部分工程师比较熟悉的都是编程语言、工具、框架这些东西，因为每天的工作就是在框架里根据业务需求，填充代码。这样的工作并不需要你具备很强的代码设计能力，只要单纯地能理解业务，翻译成代码就可以了。但是，面对编写业务无关的通用功能模块，这样稍微复杂的代码设计和开发，可能会出现不知从何下手的情况。因为我们知道只是完成功能、代码能用，可能并不复杂，但是要想写出易扩展、易用、易维护的代码，并不容易。</p>
+<p>如何分层、分模块？应该怎么划分类？每个类应该具有哪些属性、方法？怎么设计类之间的交互？该用继承还是组合？该使用接口还是抽象类？怎样做到解耦、高内聚低耦合？该用单例模式还是静态方法？用工厂模式创建对象还是直接 new 出来？如何避免引入设计模式提高扩展性的同时带来的降低可读性问题？面对复杂代码、功能、系统的设计和开发，如果你掌握了设计模式相关方法，相信面对这些功能实现会越来越得心应手，游刃有余。写出高质量代码慢慢会成为一种习惯</p>
+<h3 id="4-让读源码、学框架事半功倍"><a href="#4-让读源码、学框架事半功倍" class="headerlink" title="4. 让读源码、学框架事半功倍"></a>4. 让读源码、学框架事半功倍</h3><p>对于一个有追求的程序员来说，对技术的积累，既要有广度，也要有深度。很多技术人早早就意识到了这一点，所以在学习框架、中间件的时候，都会抽空去研究研究原理，读一读源码，希望能在深度上有所积累，而不只是略知皮毛，会用而已。有些人看源码的时候，经常会遇到看不懂、看不下去的问题。不知道你有没有遇到过这种情况？实际上，这个问题的原因很简单，那就是你积累的基本功还不够，你的能力还不足以看懂这些代码。</p>
+<p>优秀的开源项目、框架、中间件，代码量、类的个数都会比较多，类结构、类之间的关系极其复杂，常常调用来调用去。所以，为了保证代码的扩展性、灵活性、可维护性等，代码中会使用到很多设计模式、设计原则或者设计思想。如果你不懂这些设计模式、原则、思想，在看代码的时候，你可能就会琢磨不透作者的设计思路，对于一些很明显的设计思路，你可能要花费很多时间才能参悟。相反，如果你对设计模式、原则、思想非常了解，一眼就能参透作者的设计思路、设计初衷，很快就可以把脑容量释放出来，重点思考其他问题，代码读起来就会变得轻松了。</p>
+<p>实际上，除了看不懂、看不下去的问题，还有一个隐藏的问题，你可能自己都发现不了，那就是你自己觉得看懂了，实际上，里面的精髓你并没有 get 到多少！因为优秀的开源项目、框架、中间件，就像一个集各种高精尖技术在一起的战斗机。如果你想剖析它的原理、学习它的技术，而你没有积累深厚的基本功，就算把这台战斗机摆在你面前，你也不能完全参透它的精髓，只是了解个皮毛，看个热闹而已。<br>因此，学好设计模式相关的知识，不仅能让你更轻松地读懂开源项目，还能更深入地参透里面的技术精髓，做到事半功倍</p>
+<h3 id="5-为你的职场发展做铺垫"><a href="#5-为你的职场发展做铺垫" class="headerlink" title="5. 为你的职场发展做铺垫"></a>5. 为你的职场发展做铺垫</h3><p>如果你不想一辈子做一个低级的码农，想成长为技术专家、大牛、技术 leader，希望在职场有更高的成就、更好的发展，那就要重视基本功的训练、基础知识的积累。在技术这条职场道路上，当成长到一定阶段之后，你势必要承担一些指导培养初级员工、新人，以及 code review 的工作。这个时候，如果你自己都对“什么是好的代码？如何写出好的代码？”不了解，那又该如何指导别人，如何让人家信服呢？</p>
+<p>如果你是一个技术 leader，负责一个项目整体的开发工作，你就需要为开发进度、开发效率和项目质量负责。你也不希望团队堆砌垃圾代码，让整个项目无法维护，添加、修改一个功能都要费老大劲，最终拉低整个团队的开发效率吧？除此之外，代码质量低还会导致线上 bug 频发，排查困难。整个团队都陷在成天修改无意义的低级 bug、在烂代码中添补丁的事情中。而一个设计良好、易维护的系统，可以解放我们的时间，让我们做些更加有意义、更能提高自己和团队能力的事情</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本文讲了为什么要学习设计模式相关的知识，总结一下的话，主要有这样五点：应对面试中的设计模式相关问题；告别写被人吐槽的烂代码；提高复杂代码的设计和开发能力；让读源码、学框架事半功倍；为你的职场发展做铺垫。<br>设计模式作为一门与编码、开发有着直接关系的基础知识，是你现在就要开始学习的。早点去学习，以后的项目就都可以拿来锻炼，每写一行代码都是对内功的利用和加深，是可以受益一整个职业生涯的事情</p>
+<p>本篇文章来源于：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b02879b7dade">https://www.jianshu.com/p/b02879b7dade</a></p>
 
                 
             </div>
@@ -484,7 +474,7 @@ version修改为2.2.9.RELEASE</li>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dacyuan.github.io/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/">https://dacyuan.github.io/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</a>
+                    <a href="https://dacyuan.github.io/2022/10/10/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">https://dacyuan.github.io/2022/10/10/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -522,8 +512,8 @@ version修改为2.2.9.RELEASE</li>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/SpringBoot-Source-Code/">
-                                    <span class="chip bg-color">SpringBoot Source Code</span>
+                                <a href="/tags/Design-Pattern/">
+                                    <span class="chip bg-color">Design Pattern</span>
                                 </a>
                             
                         </div>
@@ -606,13 +596,13 @@ version修改为2.2.9.RELEASE</li>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/10/09/SpringBoot%E7%9A%84%E4%B8%A4%E5%A4%A7%E7%89%B9%E6%80%A7%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+                <a href="/2022/10/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F01-%E6%80%BB%E8%A7%88/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SpringBoot的两大特性源码解析">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="设计模式01-总览">
                         
-                        <span class="card-title">SpringBoot的两大特性源码解析</span>
+                        <span class="card-title">设计模式01-总览</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -623,8 +613,57 @@ version修改为2.2.9.RELEASE</li>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-10
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Design-Pattern/">
+                        <span class="chip bg-color">Design Pattern</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/10/09/%E7%BB%99Spring-Ioc%E5%AE%B9%E5%99%A8%E6%B3%A8%E5%85%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="给Spring Ioc容器注入组件的几种方式总结">
+                        
+                        <span class="card-title">给Spring Ioc容器注入组件的几种方式总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -640,47 +679,10 @@ version修改为2.2.9.RELEASE</li>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SpringBoot-Source-Code/">
-                        <span class="chip bg-color">SpringBoot Source Code</span>
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/10/08/SpringBoot%E5%86%85%E5%B5%8Ctomcat%E5%8E%9F%E7%90%86/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="SpringBoot内嵌tomcat原理">
-                        
-                        <span class="card-title">SpringBoot内嵌tomcat原理</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-08
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            chengyuan da
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
