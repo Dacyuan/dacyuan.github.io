@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot源码环境的搭建, 江南令狐冲">
-    <meta name="description" content="前言突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。
-这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。">
+    <meta name="keywords" content="设计模式05-建造者模式, 江南令狐冲">
+    <meta name="description" content="模式的动机在软件系统中，有时候面临着”一个复杂对象”的创建工作，其通常由各个部分的子对象用一定的算法构成；由于需求的变化，这个复杂对象的各个部分经常面临着剧烈的变化，但是将它们组合在一起的算法却相对稳定。
+无论是在现实世界中还是在软件系统中">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SpringBoot源码环境的搭建 | 江南令狐冲</title>
+    <title>设计模式05-建造者模式 | 江南令狐冲</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -335,12 +335,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringBoot源码环境的搭建</h1>
+                    <h1 class="description center-align post-title">设计模式05-建造者模式</h1>
                 </div>
             </div>
         </div>
@@ -362,25 +362,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/SpringBoot-Source-Code/">
-                                <span class="chip bg-color">SpringBoot Source Code</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                框架
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -389,28 +376,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-08
+                    2022-10-18
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-09
+                    2022-10-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    296
+                    991
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -433,31 +420,140 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。</p>
-<p>这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。</p>
-<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p>Idea 2020<br>Jdk 1.8<br>Maven 3.6   </p>
-<h2 id="下载对应版本的源码"><a href="#下载对应版本的源码" class="headerlink" title="下载对应版本的源码"></a>下载对应版本的源码</h2><p>源码地址为：<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE">https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE</a></p>
-<h2 id="编译构建SpringBoot源码项目"><a href="#编译构建SpringBoot源码项目" class="headerlink" title="编译构建SpringBoot源码项目"></a>编译构建SpringBoot源码项目</h2><ul>
-<li>进入spring-boot源码根目录 </li>
-<li>执行命令 <code>mvn clean install -DskipTests -Pfast</code></li>
-<li>等待构建完成，时间挺长的</li>
+                <h2 id="模式的动机"><a href="#模式的动机" class="headerlink" title="模式的动机"></a>模式的动机</h2><p>在软件系统中，有时候面临着”一个复杂对象”的创建工作，其通常由各个部分的子对象用一定的算法构成；由于需求的变化，这个复杂对象的各个部分经常面临着剧烈的变化，但是将它们组合在一起的算法却相对稳定。</p>
+<p>无论是在现实世界中还是在软件系统中，都存在一些复杂的对象，它们拥有多个组成部分，如电脑，它包括cpu、mem、mouse，keyboard等各种部件。而对于大多数用户而言，无须知道这些部件的装配细节，也几乎不会使用单独某个部件，而是使用一辆完整的电脑，可以通过建造者模式对其进行设计与描述，建造者模式可以将部件和其组装过程分开，一步一步创建一个复杂的对象。用户只需要指定复杂对象的类型就可以得到该对象，而无须知道其内部的具体构造细节。</p>
+<h2 id="模式的定义"><a href="#模式的定义" class="headerlink" title="模式的定义"></a>模式的定义</h2><blockquote>
+<p>The intent of the Builder design pattern is to separate the construction of a complex object from its representation. By doing so the same construction process can create different representations.<br>将一个复杂对象的构建与其表示分离，使得同样的构建过程可以创建不同的表示</p>
+</blockquote>
+<p>建造者模式的定义较抽象，结合上述在动机中的表述，可以这样理解，苹果8核16g不带鼠标和苹果16核32g带鼠标的电脑都是复杂对象，构建苹果8核16g不带鼠标和苹果16核32g带鼠标流程都一样，但最终构建出来的都是苹果电脑，只是配置不同。</p>
+<h2 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h2><h3 id="1-角色信息"><a href="#1-角色信息" class="headerlink" title="1. 角色信息"></a>1. 角色信息</h3><ul>
+<li><font color="red">Builder：</font>抽象建造者,定义了构建Product的抽象步骤，其实体类需要实现这些步骤。其会包含一个用来返回最终产品的方法getProduct</li>
+<li><font color="red">ConcreteBuilder：</font> 具体建造者</li>
+<li><font color="red">Director：</font> 指导者，决定如何构建最终产品的算法. 其会包含一个负责组装的方法 void construct(Builder builder)， 在这个方法中通过调用builder的方法，就可以设置builder，等设置完成后，就可以通过builder的getProduct方法获得最终的产品</li>
+<li><font color="red">Product：</font>最终要构建的对象类</li>
 </ul>
-<h2 id="使用idea打开编译后的spring-boot源码"><a href="#使用idea打开编译后的spring-boot源码" class="headerlink" title="使用idea打开编译后的spring-boot源码"></a>使用idea打开编译后的spring-boot源码</h2><ul>
-<li>修改根目录下的pom.xml <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>revision</span><span class="token punctuation">></span></span>2.2.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>revision</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main.basedir</span><span class="token punctuation">></span></span>$&#123;basedir&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main.basedir</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>disable.checks</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>disable.checks</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
- 添加 <code>&lt;disable.checks&gt;true&lt;/disable.checks&gt;</code></li>
-<li>新建module名为spring-boot-samples，并修改pom.xml文件为： <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.2.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment">&lt;!-- lookup parent from repository --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-version修改为2.2.9.RELEASE</li>
+<h3 id="2-UML类图"><a href="#2-UML类图" class="headerlink" title="2. UML类图"></a>2. UML类图</h3><p><img src="/../images/7.png"></p>
+<h2 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h2><p>示例：构建一个”16核 32g 带鼠标的苹果电脑”对象。<br>第一步：Product：Computer类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Computer</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> cpu<span class="token punctuation">;</span> <span class="token comment">// 必须</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> mem<span class="token punctuation">;</span> <span class="token comment">// 必须</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> mouse<span class="token punctuation">;</span><span class="token comment">// 可选</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Computer</span><span class="token punctuation">(</span><span class="token class-name">String</span> cpu<span class="token punctuation">,</span> <span class="token class-name">String</span> mem<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>cpu <span class="token operator">=</span> cpu<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mem <span class="token operator">=</span> mem<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMouse</span><span class="token punctuation">(</span><span class="token class-name">String</span> mouse<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mouse <span class="token operator">=</span> mouse<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"Computer&#123;"</span> <span class="token operator">+</span>
+                <span class="token string">"cpu='"</span> <span class="token operator">+</span> cpu <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", mem='"</span> <span class="token operator">+</span> mem <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", mouse='"</span> <span class="token operator">+</span> mouse <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token char">'&#125;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：Builder：ComputerBuilder类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">ComputerBuilder</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">setMouse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token class-name">Computer</span> <span class="token function">getComputer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：ConcreteBuilder：MouseComputerBuilder类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MouseComputerBuilder</span> <span class="token keyword">extends</span> <span class="token class-name">ComputerBuilder</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Computer</span> computer<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">MouseComputerBuilder</span><span class="token punctuation">(</span><span class="token class-name">String</span> cpu<span class="token punctuation">,</span> <span class="token class-name">String</span> mem<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        computer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Computer</span><span class="token punctuation">(</span>cpu<span class="token punctuation">,</span> mem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMouse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        computer<span class="token punctuation">.</span><span class="token function">setMouse</span><span class="token punctuation">(</span><span class="token string">"带鼠标的苹果电脑"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">Computer</span> <span class="token function">getComputer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> computer<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第四步：Director：</p>
+<pre class="line-numbers language-none"><code class="language-none">public class ComputerDirector &#123;
+    public void makeComputer(ComputerBuilder builder) &#123;
+        builder.setMouse();
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>测试：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainTest</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">ComputerDirector</span> director <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ComputerDirector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">ComputerBuilder</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MouseComputerBuilder</span><span class="token punctuation">(</span><span class="token string">"16核"</span><span class="token punctuation">,</span><span class="token string">"32g"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        director<span class="token punctuation">.</span><span class="token function">makeComputer</span><span class="token punctuation">(</span>builder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Computer</span> computer <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token function">getComputer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>computer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">ComputerPlus</span> computerPlus <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ComputerPlus<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token string">"16核"</span><span class="token punctuation">,</span><span class="token string">"32g"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">mouse</span><span class="token punctuation">(</span><span class="token string">"带鼠标的苹果电脑"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>computerPlus<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在日常开发中，我们总是使用简写构造者模式，其简写后的代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>hello<span class="token punctuation">.</span>design<span class="token punctuation">.</span>creatation<span class="token punctuation">.</span>builder</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ComputerPlus</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> cpu<span class="token punctuation">;</span> <span class="token comment">// 必须</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> mem<span class="token punctuation">;</span> <span class="token comment">// 必须</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> mouse<span class="token punctuation">;</span><span class="token comment">// 可选</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">ComputerPlus</span><span class="token punctuation">(</span><span class="token class-name">Builder</span> builder<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>cpu <span class="token operator">=</span> builder<span class="token punctuation">.</span>cpu<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mem <span class="token operator">=</span> builder<span class="token punctuation">.</span>mem<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mouse <span class="token operator">=</span> builder<span class="token punctuation">.</span>mouse<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"ComputerPlus&#123;"</span> <span class="token operator">+</span>
+                <span class="token string">"cpu='"</span> <span class="token operator">+</span> cpu <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", mem='"</span> <span class="token operator">+</span> mem <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", mouse='"</span> <span class="token operator">+</span> mouse <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token char">'&#125;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Builder</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">private</span> <span class="token class-name">String</span> cpu<span class="token punctuation">;</span> <span class="token comment">// 必须</span>
+        <span class="token keyword">private</span> <span class="token class-name">String</span> mem<span class="token punctuation">;</span> <span class="token comment">// 必须</span>
+        <span class="token keyword">private</span> <span class="token class-name">String</span> mouse<span class="token punctuation">;</span><span class="token comment">// 可选</span>
+
+        <span class="token keyword">public</span> <span class="token class-name">Builder</span><span class="token punctuation">(</span><span class="token class-name">String</span> cpu<span class="token punctuation">,</span> <span class="token class-name">String</span> mem<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>cpu <span class="token operator">=</span> cpu<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mem <span class="token operator">=</span> mem<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token keyword">public</span> <span class="token class-name">Builder</span> <span class="token function">mouse</span><span class="token punctuation">(</span><span class="token class-name">String</span> mouse<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mouse <span class="token operator">=</span> mouse<span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">public</span> <span class="token class-name">ComputerPlus</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ComputerPlus</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="模式的应用"><a href="#模式的应用" class="headerlink" title="模式的应用"></a>模式的应用</h2><ul>
+<li>StringBuilder</li>
+<li>Swaager-ApiBuilder</li>
+<li>Lombok-Builder模式</li>
 </ul>
-<p>至此Spring-boot源码环境的搭建成功</p>
 
                 
             </div>
@@ -484,7 +580,7 @@ version修改为2.2.9.RELEASE</li>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dacyuan.github.io/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/">https://dacyuan.github.io/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</a>
+                    <a href="https://dacyuan.github.io/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F05-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">https://dacyuan.github.io/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F05-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -521,11 +617,7 @@ version修改为2.2.9.RELEASE</li>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/SpringBoot-Source-Code/">
-                                    <span class="chip bg-color">SpringBoot Source Code</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -606,13 +698,13 @@ version修改为2.2.9.RELEASE</li>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/10/09/SpringBoot%E7%9A%84%E4%B8%A4%E5%A4%A7%E7%89%B9%E6%80%A7%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+                <a href="/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F06-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SpringBoot的两大特性源码解析">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="设计模式06-原型模式">
                         
-                        <span class="card-title">SpringBoot的两大特性源码解析</span>
+                        <span class="card-title">设计模式06-原型模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -623,27 +715,15 @@ version修改为2.2.9.RELEASE</li>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-18
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            chengyuan da
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/SpringBoot-Source-Code/">
-                        <span class="chip bg-color">SpringBoot Source Code</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -655,13 +735,13 @@ version修改为2.2.9.RELEASE</li>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/08/SpringBoot%E5%86%85%E5%B5%8Ctomcat%E5%8E%9F%E7%90%86/">
+                <a href="/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F04-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="SpringBoot内嵌tomcat原理">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="设计模式04-抽象工厂模式">
                         
-                        <span class="card-title">SpringBoot内嵌tomcat原理</span>
+                        <span class="card-title">设计模式04-抽象工厂模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -672,7 +752,7 @@ version修改为2.2.9.RELEASE</li>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-18
                             </span>
                         <span class="publish-author">
                             

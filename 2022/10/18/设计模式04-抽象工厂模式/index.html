@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot源码环境的搭建, 江南令狐冲">
-    <meta name="description" content="前言突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。
-这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。">
+    <meta name="keywords" content="设计模式04-抽象工厂模式, 江南令狐冲">
+    <meta name="description" content="定义
+The essence of the Abstract Factory Pattern is to “Provide an interface for creating families of related or dependent">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SpringBoot源码环境的搭建 | 江南令狐冲</title>
+    <title>设计模式04-抽象工厂模式 | 江南令狐冲</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -335,12 +335,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringBoot源码环境的搭建</h1>
+                    <h1 class="description center-align post-title">设计模式04-抽象工厂模式</h1>
                 </div>
             </div>
         </div>
@@ -362,25 +362,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/SpringBoot-Source-Code/">
-                                <span class="chip bg-color">SpringBoot Source Code</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                框架
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -389,28 +376,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-08
+                    2022-10-18
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-09
+                    2022-10-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    296
+                    594
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -433,32 +420,71 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>突然心血来潮，想看下SpringBoot这个强大的脚手架其源码，学习下大师们是如何设计和编码的。</p>
-<p>这是SpringBoot2.2.9源码分析专题的第一篇文章，主要讲如何来搭建我们的源码阅读调试环境。如果有经验的小伙伴们可以略过此篇文章。</p>
-<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p>Idea 2020<br>Jdk 1.8<br>Maven 3.6   </p>
-<h2 id="下载对应版本的源码"><a href="#下载对应版本的源码" class="headerlink" title="下载对应版本的源码"></a>下载对应版本的源码</h2><p>源码地址为：<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE">https://github.com/spring-projects/spring-boot/tags?after=v2.3.4.RELEASE</a></p>
-<h2 id="编译构建SpringBoot源码项目"><a href="#编译构建SpringBoot源码项目" class="headerlink" title="编译构建SpringBoot源码项目"></a>编译构建SpringBoot源码项目</h2><ul>
-<li>进入spring-boot源码根目录 </li>
-<li>执行命令 <code>mvn clean install -DskipTests -Pfast</code></li>
-<li>等待构建完成，时间挺长的</li>
-</ul>
-<h2 id="使用idea打开编译后的spring-boot源码"><a href="#使用idea打开编译后的spring-boot源码" class="headerlink" title="使用idea打开编译后的spring-boot源码"></a>使用idea打开编译后的spring-boot源码</h2><ul>
-<li>修改根目录下的pom.xml <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>revision</span><span class="token punctuation">></span></span>2.2.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>revision</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main.basedir</span><span class="token punctuation">></span></span>$&#123;basedir&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main.basedir</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>disable.checks</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>disable.checks</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
- 添加 <code>&lt;disable.checks&gt;true&lt;/disable.checks&gt;</code></li>
-<li>新建module名为spring-boot-samples，并修改pom.xml文件为： <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.2.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment">&lt;!-- lookup parent from repository --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-version修改为2.2.9.RELEASE</li>
-</ul>
-<p>至此Spring-boot源码环境的搭建成功</p>
+                <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>The essence of the Abstract Factory Pattern is to “Provide an interface for creating families of related or dependent objects without specifying their concrete classes” 抽象工厂为创建一组相关或者是相互依赖的对象提供一个接口，而不需要指定他们的具体类</p>
+</blockquote>
+<p>如果你的业务中出现了要依据不同的产品族来生产其旗下的一系列产品的时候，抽象工厂模式就配上用场了。抽象工厂模式主要是解决工厂方法模式中只能生产一类产品的单一性问题。在抽象工厂模式中，可以生产一系列产品（产品族），而不仅仅是某一类产品。抽象工厂模式（Abstract Factory Pattern）最少有四种角色为Product（抽象产品角色），ConcreteProduct（具体产品角色），Creator（抽象工厂角色），ConcreteCreator（具体工厂角色）只不过，抽象工厂角色里可以创建很多不同类产品。UML类图如下：<br><img src="/../images/5.png"></p>
+<h2 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h2><p>假如我们需要通过能生产披萨原材料的工厂制作披萨<br>首先我们看下该业务场景类图，便于帮助我们理解接下来的代码<br><img src="/../images/6.png"><br>图中有两个原材料加工工厂，分别是NYPizzaIngredientFactory和ChicagoPizzaIngredientFactory，它们都实现抽象工厂接口PizzaIngredientFactory。其中NYPizzaIngredientFactory生产对应的六种原材料，如UML图所示。由于布局原因，ChicagoPizzaIngredientFactory生产的原材料未在UML图中显示。</p>
+<p>第一步：定义生成六种原材料的接口</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Cheese</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Dough</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+其他四种接口代码在此处省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>第二步：对这6种原材料接口的实现</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BlackOlives</span> <span class="token keyword">implements</span> <span class="token class-name">Veggies</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token string">"Black Olives"</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+其他实现代码省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>第三步：定义抽象工厂接口</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PizzaIngredientFactory</span> <span class="token punctuation">&#123;</span>
+ 
+	<span class="token keyword">public</span> <span class="token class-name">Dough</span> <span class="token function">createDough</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token class-name">Sauce</span> <span class="token function">createSauce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token class-name">Cheese</span> <span class="token function">createCheese</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token class-name">Veggies</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">createVeggies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token class-name">Pepperoni</span> <span class="token function">createPepperoni</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token class-name">Clams</span> <span class="token function">createClam</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>第四步：实现抽象工厂接口</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NYPizzaIngredientFactory</span> <span class="token keyword">implements</span> <span class="token class-name">PizzaIngredientFactory</span> <span class="token punctuation">&#123;</span>
+ 
+	<span class="token keyword">public</span> <span class="token class-name">Dough</span> <span class="token function">createDough</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ThinCrustDough</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+ 
+	<span class="token keyword">public</span> <span class="token class-name">Sauce</span> <span class="token function">createSauce</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MarinaraSauce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+ 
+	<span class="token keyword">public</span> <span class="token class-name">Cheese</span> <span class="token function">createCheese</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ReggianoCheese</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+ 
+	<span class="token keyword">public</span> <span class="token class-name">Veggies</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">createVeggies</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">Veggies</span> veggies<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token keyword">new</span> <span class="token class-name">Garlic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Onion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Mushroom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">RedPepper</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> veggies<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+ 
+	<span class="token keyword">public</span> <span class="token class-name">Pepperoni</span> <span class="token function">createPepperoni</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SlicedPepperoni</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">public</span> <span class="token class-name">Clams</span> <span class="token function">createClam</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">FreshClams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第五步：不同工厂组合不同的原材料生产披萨，具体代码可以去我的github上下载</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2>
                 
             </div>
             <hr/>
@@ -484,7 +510,7 @@ version修改为2.2.9.RELEASE</li>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dacyuan.github.io/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/">https://dacyuan.github.io/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</a>
+                    <a href="https://dacyuan.github.io/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F04-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">https://dacyuan.github.io/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F04-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -521,11 +547,7 @@ version修改为2.2.9.RELEASE</li>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/SpringBoot-Source-Code/">
-                                    <span class="chip bg-color">SpringBoot Source Code</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -606,13 +628,13 @@ version修改为2.2.9.RELEASE</li>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/10/09/SpringBoot%E7%9A%84%E4%B8%A4%E5%A4%A7%E7%89%B9%E6%80%A7%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+                <a href="/2022/10/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F05-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SpringBoot的两大特性源码解析">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="设计模式05-建造者模式">
                         
-                        <span class="card-title">SpringBoot的两大特性源码解析</span>
+                        <span class="card-title">设计模式05-建造者模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -623,27 +645,15 @@ version修改为2.2.9.RELEASE</li>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-18
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            chengyuan da
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/SpringBoot-Source-Code/">
-                        <span class="chip bg-color">SpringBoot Source Code</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -655,13 +665,13 @@ version修改为2.2.9.RELEASE</li>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/08/SpringBoot%E5%86%85%E5%B5%8Ctomcat%E5%8E%9F%E7%90%86/">
+                <a href="/2022/10/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F03-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="SpringBoot内嵌tomcat原理">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="设计模式03-工厂方法模式">
                         
-                        <span class="card-title">SpringBoot内嵌tomcat原理</span>
+                        <span class="card-title">设计模式03-工厂方法模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -672,15 +682,27 @@ version修改为2.2.9.RELEASE</li>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-14
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            chengyuan da
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Design-Pattern/">
+                        <span class="chip bg-color">Design Pattern</span>
+                    </a>
+                    
                 </div>
                 
             </div>
