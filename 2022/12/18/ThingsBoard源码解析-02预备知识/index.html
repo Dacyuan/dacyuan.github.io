@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="ThingsBoard源码解析-02预备知识, 江南令狐冲">
-    <meta name="description" content="">
+    <meta name="description" content="前言ThingsBoard源码主要涉及到以下技术，SpringBoot、SpringDataJPA、SpringSecurity、Actor模型、Netty、Guava、WebSocket。以及以下设计模式，建造者模式、策略模式、适配器模式">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -118,6 +118,49 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>小碎片</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Musics</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/book">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Books</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Galleries</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/about" class="waves-effect waves-light">
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
@@ -219,6 +262,51 @@
 			
 			归档
 		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			小碎片
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/musics " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Musics</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/book " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Books</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Galleries</span>
+                  </a>
+                </li>
+              
+            </ul>
           
         </li>
         
@@ -361,12 +449,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ThingsBoard/">
+                                <span class="chip bg-color">ThingsBoard</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
+                                框架
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -382,21 +483,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-18
+                    2022-12-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -419,7 +520,72 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ThingsBoard源码主要涉及到以下技术，SpringBoot、SpringDataJPA、SpringSecurity、Actor模型、Netty、Guava、WebSocket。以及以下设计模式，建造者模式、策略模式、适配器模式、模版模式。本篇文章简要介绍下这些前置知识。</p>
+<h2 id="Actor模型"><a href="#Actor模型" class="headerlink" title="Actor模型"></a>Actor模型</h2><p>并发编程中最让程序员头疼的就是多个线程之间的通信，一般解决多线程间的通信主要有两种策略：共享内存和消息传递。使用共享内存策略的并发编程模式需要考虑的一个问题就是共享资源的竞争，处理各种锁问题让人头疼，大多数流行的语言（Java）并发是基于共享内存，使用加锁的方式防止写争夺。和共享内存方式相比，消息传递策略最大的优点就是不会有数据竞争状态，其实现消息传递有两种常见的类型：基于Channel（Golang为代表）的消息传递和基于Actor（Erlang为代表）的消息传递。</p>
+<p>Actor模型在1973年于Carl Hewitt、Peter Bishop及Richard Steiger的<a target="_blank" rel="noopener" href="https://www.ijcai.org/Proceedings/73/Papers/027B.pdf">论文</a>中提出。Actor模型使用消息模型，每个Actor在同一时间处理最多一个消息，可以发送消息给其他Actor，保证了单独写原则。从而巧妙避免了多个线程对共享资源的写争夺，Actor模型是通用的并发编程模型，并非某个语言或某个框架所有，一个actor由三个部分组成：状态（state）、行为（behavior）、邮箱（mailbox）。更加详细的介绍请跳转这篇文章<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d803e2a7de8e">Actor模型</a>。</p>
+<p>接下来我们来看下ThingsBoard源码中是如何实现其自定义的actor。其中TbActor为顶级接口，有多个实现类如AppActor、DeviceActor等。Dispatcher可类比于Actor模型中的behavior，TbActorRef可类比于Actor模型中的mailbox。具体的类图如下。<br><img src="/../images/20221223.jpeg"><br>下面这张图是我截取在官网上的。下面英文是对各个actor的介绍。<br><img src="/../images/20221224.png"><br>The brief description of each actor’s functionality is listed below:</p>
+<ul>
+<li><strong>App Actor</strong> - responsible for management of tenant actors. An instance of this actor is always present in memory.（App Actor全局唯一，负责管理所有的tenant actor）</li>
+<li><strong>Tenant Actor</strong> - responsible for management of tenant device &amp; rule chain actors. An instance of this actor is always present in memory.（Tenant Actor 负责管理device actor， rule chain actor）</li>
+<li><strong>Device Actor</strong> - maintain state of the device: active sessions, subscriptions, pending RPC commands, etc. Caches current device attributes in memory for performance reasons. An actor is created when the first message from the device is processed. The actor is stopped when there is no messages from devices for a certain time.（Device Actor 维护设备的状态比如激活会话、订阅、等待RPC调用等。当处理来自设备的第一个消息时，将创建一个actor。在一定时间内没有来自设备的消息时，actor将停止。）</li>
+<li><strong>Rule Chain Actor</strong> - process incoming messages and dispatches them to rule node actors. An instance of this actor is always present in memory.（Rule Chain Actor处理传入的消息并将其分发给规则节点参与者。）</li>
+<li><strong>Rule Node Actor</strong> - process incoming messages, and report results back to rule chain actor. An instance of this actor is always present in memory.（处理传入的消息，并向Rule Chain Actor报告结果。）</li>
+</ul>
+<p>最后我们来看下ThingsBoard是如何启动Actor系统的。<br>1、在DefaultActorService类中，@PostConstruct标注的方法initActorSystem。当需要的注入属性都加载进来后，会执行initActorSystem方法。<br>1.1、 首先会创建不同actor实例的分发器。<br>1.2、 创建AppActor实例，核心代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token class-name">TbActorRef</span> <span class="token function">createActor</span><span class="token punctuation">(</span><span class="token class-name">String</span> dispatcherId<span class="token punctuation">,</span> <span class="token class-name">TbActorCreator</span> creator<span class="token punctuation">,</span> <span class="token class-name">TbActorId</span> parent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Dispatcher</span> dispatcher <span class="token operator">=</span> dispatchers<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>dispatcherId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>dispatcher <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            log<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">"Dispatcher with id [&#123;&#125;] is not registered!"</span><span class="token punctuation">,</span> dispatcherId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Dispatcher with id ["</span> <span class="token operator">+</span> dispatcherId <span class="token operator">+</span> <span class="token string">"] is not registered!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token class-name">TbActorId</span> actorId <span class="token operator">=</span> creator<span class="token punctuation">.</span><span class="token function">createActorId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">TbActorMailbox</span> actorMailbox <span class="token operator">=</span> actors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>actorMailbox <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            log<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"Actor with id [&#123;&#125;] is already registered!"</span><span class="token punctuation">,</span> actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Lock</span> actorCreationLock <span class="token operator">=</span> actorCreationLocks<span class="token punctuation">.</span><span class="token function">computeIfAbsent</span><span class="token punctuation">(</span>actorId<span class="token punctuation">,</span> id <span class="token operator">-></span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            actorCreationLock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                actorMailbox <span class="token operator">=</span> actors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>actorMailbox <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    log<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"Creating actor with id [&#123;&#125;]!"</span><span class="token punctuation">,</span> actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">TbActor</span> actor <span class="token operator">=</span> creator<span class="token punctuation">.</span><span class="token function">createActor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">TbActorRef</span> parentRef <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        parentRef <span class="token operator">=</span> <span class="token function">getActor</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>parentRef <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TbActorNotRegisteredException</span><span class="token punctuation">(</span>parent<span class="token punctuation">,</span> <span class="token string">"Parent Actor with id ["</span> <span class="token operator">+</span> parent <span class="token operator">+</span> <span class="token string">"] is not registered!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span>
+                    <span class="token punctuation">&#125;</span>
+                    <span class="token class-name">TbActorMailbox</span> mailbox <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TbActorMailbox</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> settings<span class="token punctuation">,</span> actorId<span class="token punctuation">,</span> parentRef<span class="token punctuation">,</span> actor<span class="token punctuation">,</span> dispatcher<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    actors<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>actorId<span class="token punctuation">,</span> mailbox<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    mailbox<span class="token punctuation">.</span><span class="token function">initActor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 很重要的一行代码</span>
+                    actorMailbox <span class="token operator">=</span> mailbox<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        parentChildMap<span class="token punctuation">.</span><span class="token function">computeIfAbsent</span><span class="token punctuation">(</span>parent<span class="token punctuation">,</span> id <span class="token operator">-></span> <span class="token class-name">ConcurrentHashMap</span><span class="token punctuation">.</span><span class="token function">newKeySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                    log<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"Actor with id [&#123;&#125;] is already registered!"</span><span class="token punctuation">,</span> actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+                actorCreationLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                actorCreationLocks<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>actorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 最终返回的是mailbox的引用</span>
+        <span class="token keyword">return</span> actorMailbox<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1.3、 创建StatsActor实例</p>
+<p>2、 <strong>当启动完成后，系统有且只有两个Actor实例，即AppActor实例和StatsActor实例。</strong>同时@AfterStartUp注解标注的方法，将会发送一条高优先级的消息即AppInitMsg。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AfterStartUp</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token class-name">AfterStartUp</span><span class="token punctuation">.</span><span class="token constant">ACTOR_SYSTEM</span><span class="token punctuation">)</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onApplicationEvent</span><span class="token punctuation">(</span><span class="token class-name">ApplicationReadyEvent</span> applicationReadyEvent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Received application ready event. Sending application init message to actor system"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       appActor<span class="token punctuation">.</span><span class="token function">tellWithHighPriority</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AppInitMsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2.1、 发送AppInitMsg消息后具体的执行流程为：tellWithHighPriority(TbActorMsg actorMsg) &#x3D;》 enqueue(actorMsg, HIGH_PRIORITY) &#x3D;》tryProcessQueue(true) &#x3D;》processMailbox() &#x3D;》process（）&#x3D;》doProcess（）【采用模版方法设计模式，将会调用AppActor的doProcess方法】&#x3D;》由于第一次ruleChainsInitialized未初始化，故执行initTenantActors() &#x3D;》 getOrCreateTenantActor(tenant.getId()) &#x3D;》最终会调用到createActor(String dispatcherId, TbActorCreator creator, TbActorId parent)方法创建所有tenantActor实例。<strong>至此创建了所有的TenantActor实例。</strong></p>
+<p>2.2、</p>
+<h2 id="Netty模型"><a href="#Netty模型" class="headerlink" title="Netty模型"></a>Netty模型</h2><h2 id="Guava"><a href="#Guava" class="headerlink" title="Guava"></a>Guava</h2><h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h2><h2 id="SpringDataJpA"><a href="#SpringDataJpA" class="headerlink" title="SpringDataJpA"></a>SpringDataJpA</h2><h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><h2 id="SpringSecurity"><a href="#SpringSecurity" class="headerlink" title="SpringSecurity"></a>SpringSecurity</h2>
                 
             </div>
             <hr/>
@@ -482,7 +648,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/ThingsBoard/">
+                                    <span class="chip bg-color">ThingsBoard</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -567,9 +737,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="ThinsBoard源码解析-03浅析设备认证流程">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="ThinsBoard源码解析-03浅析设备连接-认证流程">
                         
-                        <span class="card-title">ThinsBoard源码解析-03浅析设备认证流程</span>
+                        <span class="card-title">ThinsBoard源码解析-03浅析设备连接-认证流程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -633,11 +803,23 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            chengyuan da
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    框架
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ThingsBoard/">
+                        <span class="chip bg-color">ThingsBoard</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -790,67 +972,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
-    
 
     <div class="container row center-align"
          style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2019-2023</span>
             
             <a href="/about" target="_blank">chengyuan da</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -858,7 +986,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.9k</span>
+                        class="white-color">12.5k</span>
             
             
             
@@ -884,13 +1012,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/Dacyuan" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:chengyuanda19@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -900,7 +1028,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1913171650" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1913171650" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 

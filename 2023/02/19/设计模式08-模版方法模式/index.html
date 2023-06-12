@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot内嵌tomcat原理, 江南令狐冲">
-    <meta name="description" content="">
+    <meta name="keywords" content="设计模式08-模版方法模式, 江南令狐冲">
+    <meta name="description" content="模式动机在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但各个子步骤却有很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SpringBoot内嵌tomcat原理 | 江南令狐冲</title>
+    <title>设计模式08-模版方法模式 | 江南令狐冲</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -422,12 +422,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringBoot内嵌tomcat原理</h1>
+                    <h1 class="description center-align post-title">设计模式08-模版方法模式</h1>
                 </div>
             </div>
         </div>
@@ -449,12 +449,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Design-Pattern/">
+                                <span class="chip bg-color">Design Pattern</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                设计模式
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -463,21 +476,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-08
+                    2023-02-19
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-08
+                    2023-02-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    589
                 </div>
                 
 
@@ -507,7 +520,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="模式动机"><a href="#模式动机" class="headerlink" title="模式动机"></a>模式动机</h2><p>在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但各个子步骤却有很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者后期实现需求？</p>
+<h2 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h2><blockquote>
+<p>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法结构即可重定义该算法的某些特定步骤。</p>
+</blockquote>
+<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><h3 id="参与角色"><a href="#参与角色" class="headerlink" title="参与角色"></a>参与角色</h3><p>模版方法模式包含如下角色：</p>
+<ul>
+<li><p>AbstractClass（抽象类）：在抽象类中定义了一系列基本操作，这些基本操作可以是具体的，也可以是抽象的，每一个基本操作对应算法的一个步骤，在其子类中可以重定义或实现这些步骤。同时，在抽象类中实现了一个模板方法(Template Method)，用于定义一个算法的框架，模板方法不仅可以调用在抽象类中实现的基本方法，也可以调用在抽象类的子类中实现的基本方法，还可以调用其他对象中的方法。</p>
+</li>
+<li><p>ConcreteClass（具体子类）：它是抽象类的子类，用于实现在父类中声明的抽象基本操作以完成子类特定算法的步骤，也可以覆盖在父类中已经实现的具体基本操作。</p>
+</li>
+</ul>
+<p>基本方法是实现算法各个步骤的方法，是模板方法的组成部分。基本方法又可以分为三种：抽象方法(Abstract Method)、具体方法(Concrete Method)和钩子方法(Hook Method)。</p>
+<ul>
+<li>抽象方法：一个抽象方法由抽象类声明、由其具体子类实现。</li>
+<li>具体方法：一个具体方法由一个抽象类或具体类声明并实现，其子类可以进行覆盖也可以直接继承。</li>
+<li>钩子方法：可以与一些具体步骤 “挂钩” ，以实现在不同条件下执行模板方法中的不同步骤</li>
+</ul>
+<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><h2 id="模式分析"><a href="#模式分析" class="headerlink" title="模式分析"></a>模式分析</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
                 
             </div>
             <hr/>
@@ -533,7 +563,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dacyuan.github.io/2022/10/08/SpringBoot%E5%86%85%E5%B5%8Ctomcat%E5%8E%9F%E7%90%86/">https://dacyuan.github.io/2022/10/08/SpringBoot%E5%86%85%E5%B5%8Ctomcat%E5%8E%9F%E7%90%86/</a>
+                    <a href="https://dacyuan.github.io/2023/02/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F08-%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">https://dacyuan.github.io/2023/02/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F08-%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -570,7 +600,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Design-Pattern/">
+                                    <span class="chip bg-color">Design Pattern</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -651,13 +685,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/10/08/SpringBoot%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/">
+                <a href="/2023/06/08/Acwing%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="SpringBoot源码环境的搭建">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Acwing刷题记录">
                         
-                        <span class="card-title">SpringBoot源码环境的搭建</span>
+                        <span class="card-title">Acwing刷题记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -668,27 +702,15 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-08
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    框架
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            chengyuan da
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/SpringBoot-Source-Code/">
-                        <span class="chip bg-color">SpringBoot Source Code</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -700,13 +722,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/08/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99starter/">
+                <a href="/2023/02/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F07-%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="自己动手写starter">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="设计模式07-责任链模式">
                         
-                        <span class="card-title">自己动手写starter</span>
+                        <span class="card-title">设计模式07-责任链模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -717,12 +739,16 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            chengyuan da
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -730,8 +756,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SpringBoot/">
-                        <span class="chip bg-color">SpringBoot</span>
+                    <a href="/tags/Design-Pattern/">
+                        <span class="chip bg-color">Design Pattern</span>
                     </a>
                     
                 </div>
